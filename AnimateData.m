@@ -37,7 +37,7 @@ tic;
 %% IP
 
 %setup figure and video object
-h1 = figure('visible','off');
+h1 = figure;%('visible','off');
 ax1 = gca;
 c1 = colorbar;
 c1.FontSize = 14;
@@ -55,13 +55,17 @@ for i = 1:3:framenum
     %plot
     imagesc(data{i,1},'AlphaData',imAlpha);
     %set plot properties
-    set(ax1,'color',0*[1 1 1], 'XTick', xtick, 'YTick', ytick,'FontSize',14)
+    set(ax1,'color',0*[1 1 1], 'XTick', xtick, 'YTick', ytick,'FontSize',14,'FontName','TrebuchetMS')
     axis image; colorbar; c1 = colorbar; c1.FontSize = 14; caxis(ax1,[minC maxC]);
+    title(c1,'^\circC','FontName','TrebuchetMS')
+    title('Temperature ( ^\circC ) Over Time','FontSize',14,'FontName','TrebuchetMS')
+    xlabel('Tile Columns','FontName','TrebuchetMS')
+    ylabel('Tile Rows','FontName','TrebuchetMS')
     
     %add Temps
     for x = 1:5
         for y = 1:6
-            text(y-0.2,x,num2str(data{i,1}(x,y)),'FontSize',14);
+            text(y-0.2,x,num2str(data{i,1}(x,y)),'FontSize',14,'FontName','TrebuchetMS');
         end
     end
     
@@ -98,13 +102,16 @@ for i = 1:3:framenum
     %plot
     imagesc(data{i,2},'AlphaData',imAlpha);
     %set plot properties
-    set(ax2,'color',0*[1 1 1], 'XTick', xtick, 'YTick', ytick, 'FontSize', 14)
+    set(ax2,'color',0*[1 1 1], 'XTick', xtick, 'YTick', ytick, 'FontSize', 14,'FontName','TrebuchetMS')
     axis image; colorbar; c2 = colorbar; c2.FontSize = 14; caxis(ax2,[minC maxC]);
-    
+    title(c1,'^\circC')
+    title('Temperature ( ^\circC ) Over Time','FontSize',14,'FontName','TrebuchetMS')
+    xlabel('Tile Columns','FontName','TrebuchetMS')
+    ylabel('Tile Rows','FontName','TrebuchetMS')
     % add Temps
     for x = 1:5
         for y = 1:6
-            text(y-0.2,x,num2str(data{i,2}(x,y)),'FontSize',14);
+            text(y-0.2,x,num2str(data{i,2}(x,y)),'FontSize',14,'FontName','TrebuchetMS');
         end
     end
     
