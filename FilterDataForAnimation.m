@@ -7,12 +7,12 @@
 close all; clear all; clc
 
 %load raw data
-load('RawData.Mat')
+load('RawDataUP.Mat')
 
 % create a frame of NaNs to pad IP tests that ended early
 padScreen = ones(5,6)*NaN;
 
-%% Process data to make relative and remove outliers
+% Process data to make relative and remove outliers
 
 % ambient
 Amb.IP(Amb.IP < -198) = NaN;
@@ -175,10 +175,19 @@ end
 
 
 % ambient model predict
+PredModel.Ref(isoutlier(PredModel.Ref(:,2:end),'mean')) = NaN;
+
+PredModelMat = cell(min(size((PredModel.Ref))),1);
+
+for i = 1:min(size((PredModel.Ref)))
+    
+    
+    PredModelMat{i,1} = vec2mat(PredModel.Ref(i,2:end),6); %Ref
+
+end
 
 
-
-save('AnimationFrames.mat','AmbMat', 'BlackMat', 'EmisMat', 'FiltMat', 'GreaseMat', 'CMat', 'HMat', 'RawModelMat')
+save('AnimationFrames1.mat','AmbMat', 'BlackMat', 'EmisMat', 'FiltMat', 'GreaseMat', 'CMat', 'HMat', 'RawModelMat', 'PredModelMat')
 
 
 

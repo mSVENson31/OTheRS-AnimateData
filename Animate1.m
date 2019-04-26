@@ -1,16 +1,7 @@
 clear all; close all; clc;
 
 % Read in Animation Frames and store in CellArray
-AllData = cell(1,8);
-load('AnimationFrames.mat');
-AllData{1} = CMat;
-AllData{2} = EmisMat;
-AllData{3} = FiltMat;
-AllData{4} = GreaseMat;
-AllData{5} = HMat;
-AllData{6} = RawModelMat;
-AllData{7} = AmbMat;
-AllData{8} = BlackMat;
+load('AnimationFrames1.mat');
 
 % set x and y ticks
 xtick = [1 2 3 4 5 6];
@@ -22,20 +13,16 @@ configdir = configdir(3:end);
 
 % loop through test cases and save mp4 animations for IP and Ref of the
 % same test
-for J = 1:length(configdir)
-% read in test config    
-configfile = importdata(['config/' configdir(J).name]);
 
 %set properties
-data = AllData{J};
-name_IP = configfile.name_IP;
-name_Ref = configfile.name_Ref;
-minC = configfile.minC;
-maxC = configfile.maxC;
+data = PredModelMat;
+
+name_IP = 'PredModel';%configfile.name_Ref;
+minC = 24;
+maxC = 29;
 
 tic;
-
-%========= IP Data ===========
+%% IP
 
 %setup figure and video object
 h1 = figure('visible','off');
@@ -48,7 +35,7 @@ open(vid1);
 
 framenum = length(data);
 
-for i = 1:3:framenum
+for i = 1:framenum
     
     % imAlpha used to make tiles transparent when NaN
     imAlpha = ones(size(data{i,1}));
@@ -82,7 +69,7 @@ close(vid1)
 close(h1)
 toc;
 tic;
-%========= Ref Data ===========
+%% Ref Data
 
 %setup figure and video object
 h2 = figure('visible','off');
@@ -96,7 +83,7 @@ open(vid2);
 
 framenum = length(data);
 
-for i = 1:3:framenum
+for i = 1:framenum
  
     % imAlpha used to make tiles transparent when NaN
     imAlpha = ones(size(data{i,2}));
@@ -110,7 +97,6 @@ for i = 1:3:framenum
     title('Temperature ( ^\circC ) Over Time','FontSize',14,'FontName','TrebuchetMS')
     xlabel('Tile Columns','FontName','TrebuchetMS')
     ylabel('Tile Rows','FontName','TrebuchetMS')
-    
     % add Temps
     for x = 1:5
         for y = 1:6
@@ -128,5 +114,3 @@ end
 close(vid2)
 close(h2)
 toc;
-
-end
