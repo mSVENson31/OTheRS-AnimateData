@@ -26,17 +26,20 @@ for i = 1:8
 end
 
 % error per tile
-TimeAvgError = zeros(1,8);
-TimeStdError = zeros(1,8);
+TimeAvgError = cell(1,8);
+TimeStdError = cell(1,8);
+TimeVarError = cell(1,8);
 for z = 1:8
-    for i = 1:5
-        for j = 1:6
     
+    TimeAvgError{z} = nanmean(AbsDiff{z},3);
+    TimeStdError{z} = std(AbsDiff{z},0,3,'omitnan');
+    TimeVarError{z} = var(AbsDiff{z},0,3,'omitnan');
     
-    TimeAvgError = mean(AbsDiff{z}{i,j,:})
-        end
-    end
 end
+
+save('ErrorPerTile.mat','TimeAvgError','TimeStdError','TimeVarError')
+
+
         
         
 
