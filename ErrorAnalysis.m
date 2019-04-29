@@ -16,9 +16,7 @@ AllData{8} = BlackMat;
 AbsDiff = cell(1,8);
 
 for i = 1:8
-    
     for j = 1:length(AllData{i})
-        
         
         AbsDiff{i}(:,:,j) = abs(AllData{i}{j,1} - AllData{i}{j,2});
         
@@ -28,19 +26,14 @@ end
 % error per tile
 TimeAvgError = cell(1,8);
 TimeStdError = cell(1,8);
-TimeVarError = cell(1,8);
 for z = 1:8
     
     TimeAvgError{z} = nanmean(AbsDiff{z},3);
     TimeStdError{z} = std(AbsDiff{z},0,3,'omitnan');
-    TimeVarError{z} = var(AbsDiff{z},0,3,'omitnan');
     
 end
 
-save('ErrorPerTile.mat','TimeAvgError','TimeStdError','TimeVarError')
+save('ErrorPerTile.mat','TimeAvgError','TimeStdError')
 
 
         
-        
-
-
